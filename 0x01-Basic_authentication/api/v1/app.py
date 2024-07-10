@@ -16,8 +16,8 @@ app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
 auth = None
-auth_environment = getenv('AUTH_TYPE', 'auth')
-if auth_environment == 'auth':
+auth_type = getenv('AUTH_TYPE', 'auth')
+if auth_type == 'auth':
     auth = Auth()
 
 
@@ -44,6 +44,8 @@ def Unauthorized(error) -> str:
 
 @app.before_request
 def authenticate_user():
+    """Authenticates a user
+    """
     if auth:
         excluded_paths = [
             '/api/v1/status/',
