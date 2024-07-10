@@ -43,7 +43,7 @@ def Unauthorized(error) -> str:
 
 
 @app.before_request
-def before_request():
+def authenticate_user():
     if auth:
         excluded_paths = [
             '/api/v1/status/',
